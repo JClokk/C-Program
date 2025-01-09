@@ -1,0 +1,152 @@
+//Summary: This progarm computes and displays the charges for a patient’s hospital stay
+//and write the report it creates to a file
+
+/* input    /    output     chart
+This program will compute patient hospital charges.
+Enter I for in-patient or O for out-patinet: I
+
+Number of days in the hospital: 5
+Daily room rate: $100
+Lab fees and other service: $120
+Medication charges: $400
+
+The billing report has been written to the hospital txt file.*/
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+char vadidate (char);//vadidate function prototype
+double vadidateData (double);//vadidate function prototype
+double patientCharges (int, double, double, double);//in-patient prototype
+double patientCharges (double, double);//out-patient prototype
+
+int main() {
+    //set variables
+    char patient;
+    int day = 0;
+    double dailyRate = 0.0;
+    double service = 0.0;
+    double medication = 0.0;
+    double totalCharges = 0.0;
+
+    ofstream outputFile;
+    outputFile.open("hospital.txt");//open the hospital.txt file
+    
+    //Display the program and get the user input
+   
+       cout << "This program will compute patient hospital charges.\n";
+       cout << "Enter I for in-patient or O for out-patinet: ";
+       cin >> patient;
+       patient = vadidate(patient);
+    
+    //Use if statement to display in-patient or out-patinet then calculate the charges
+    if (patient == 'I')
+    {
+    
+            cout << "\nNumber of days in the hospital: ";
+            cin >> day;
+            day = vadidateData(day); //Call vadiateData funciton
+            cout << "Daily room rate: $";
+            cin >> dailyRate;
+            dailyRate = vadidateData(dailyRate);//Call vadiateData funciton
+            cout << "Lab fees and other service: $";
+            cin >> service;
+            service = vadidateData(service);//Call vadiateData funciton
+            cout << "Medication charges: $";
+            cin >> medication;
+            medication = vadidateData(medication);//Call vadiateData funciton
+            //Call patientCharges funciton
+            totalCharges = patientCharges(day, dailyRate, service, medication);
+           
+        cout << fixed << showpoint << setprecision(2); //set detimal to 2
+        
+        //Write the report to the file
+        outputFile << "**************************" << endl;
+        outputFile << "Hospital Billing Statement" << endl;
+        outputFile << "**************************" << endl;
+        outputFile << "Room Charges: $" << dailyRate * day << setw(8) << endl;
+        outputFile << "Lab & Services: $" << service << setw(8) << endl;
+        outputFile << "Medication: $" << medication << setw(8) << endl;
+        outputFile << "Total Charges: $" << totalCharges <<setw(8) << endl;
+        outputFile << "**************************" << endl;
+    
+    outputFile.close();
+    
+    cout <<"\nThe billing report has been written to the hospital txt file.\n";
+                                       }
+   
+    if (patient == 'O')
+    {
+        cout << "\nLab fees and other service: $";
+        cin >> service;
+        service = vadidateData(service);//Call vadiateData funciton
+        cout << "Medication charges: $";
+        cin >> medication;
+        medication = vadidateData(medication);//Call vadiateData funciton
+        totalCharges = patientCharges(service, medication);//Call patientCharges funciton
+        
+        cout << fixed << showpoint << setprecision(2);
+       
+        //Write the report to the file
+        outputFile << "**************************" << endl;
+        outputFile << "Hospital Billing Statement" << endl;
+        outputFile << "**************************" << endl;
+        outputFile << "Lab & Services: $" << service << setw(8) << endl;
+        outputFile << "Medication: $" << medication << setw(8) << endl;
+        outputFile << "Total Charges: $" << totalCharges <<setw(8) << endl;
+        outputFile << "**************************" << endl;
+    
+        outputFile.close();
+        
+        cout <<"\nThe billing report has been written to the hospital txt file.\n";
+                                           
+    }
+    return 0;
+    
+}
+//***************************************
+//* Definition of funciton vadidateData.*
+//* This funcion vadiate the input.     *
+//***************************************
+double vadidateData (double num)
+{
+    while (num < 0)
+    {
+        cout << "input is no less than 0. ";
+        cout << "Please enter again: ";
+        cin >> num;
+        
+    }
+    return num;
+}
+//******************************************
+//* Definition of funciton vadidate.       *
+//* This funcion vadidate the error input. *
+//******************************************
+char vadidate (char patient)
+{
+    while (!(patient == 'I' )|| (patient =='O'))
+    {
+        cout << "Please enter I for in-patient or O for out-patient: ";
+        cin >> patient;
+    }
+    return patient;
+}
+//***************************************************
+//* Definition of overloaded funciton patintCharges.*
+//* This funcion calculate the in-patient charges.  *
+//***************************************************
+double patientCharges (int day, double dailyRate, double service, double medication)
+{
+    return dailyRate * day + service + medication;
+}
+//***************************************************
+//* Definition of overloaded funciton patintCharges.*
+//* This funcion calculate the out-patient charges. *
+//***************************************************
+double patientCharges (double service, double medication)
+{
+    return service + medication;
+}
