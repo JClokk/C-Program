@@ -1,0 +1,58 @@
+// Summary: This program displays the shipping charge
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+    //constant min weight, max weight and min distance, max distance
+    const int minWeight = 0,
+              maxWeight = 20,
+              minDistance = 10,
+              maxDistance = 3000;
+    
+    //Variable
+    float weight,
+          distance,
+          shippingCharge = 0.00;
+    
+    //Ask the user to enter the weight of the package and the distance
+    cout << "Weight of the package in kilograms (max 20 Kg): ";
+    cin >> weight;
+    
+    //Use if statement to calculate min weight, max weight and min distance, max distance
+    if (weight <= minWeight || weight > maxWeight)
+    {
+        cout << "\nWe do not accept less than 0 kg or more than 20 kg for the weight of the package.";
+    }
+    else
+    {
+        cout << "Distance the package is to be shipped (min 10 Mi, max 3000 Mi): ";
+        cin >> distance;
+    if (distance < minDistance || distance > maxDistance)
+    {
+        cout << "\nWe do not ship less than 10 miles or more than 3000 miles.";
+    }
+       
+    //Use the if statement calculate the shipping charge
+        else{
+            
+                 if (weight <= 2)
+                    shippingCharge = 1.10;
+            else if (weight > 2 && weight <= 6)
+                    shippingCharge = 2.20;
+            else if (weight > 6 && weight <= 10)
+                    shippingCharge = 3.70;
+            else if (weight > 10 && weight <= 20)
+                    shippingCharge = 4.80;
+            
+            //Display the shipping charge
+            cout <<setprecision(2) <<fixed <<endl;
+            cout << "The shipping charge is $ " << shippingCharge <<endl;
+        }
+    }
+    
+    return 0;
+}
+
