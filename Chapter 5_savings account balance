@@ -1,0 +1,82 @@
+//Summary: This program displays and calculates the savings account balance
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() {
+   
+    //Variable
+   double starting_balance,
+          annual_interest_rate,
+          total_interest = 0.0,
+          total_diposited = 0.0,
+          total_withdrawn = 0.0,
+          ending_balance = 0.0,
+          interest_received = 0.0,
+          monthly_balance = 0.0,
+          monthly_diposited,
+          monthly_withdrawn;
+          
+    cout<<fixed<<showpoint<<setprecision(2);//With 2 decimal places.
+    
+    //Ask the user enter starting balance and annual interest rate
+    cout<<"Enter the starting balance on the account: $";
+    cin>>starting_balance;
+    cout<<"Enter the annual interest rate on the account (e.g. .04): ";
+    cin>>annual_interest_rate;
+        monthly_balance += starting_balance;
+   
+    //Ask the user to enter diposite and withdrawn
+    for (int month = 1; month <= 3; month++) {
+        do
+        {
+            cout<<"\nMonth "<<month<<endl;
+            cout<<"Total diposited for this month: $";
+            cin>>monthly_diposited;
+            if (monthly_diposited < 0) {
+                //validate only positive number
+                cout<<"Do not accept negative numbers"<<endl;
+            }
+        }
+        while (monthly_diposited < 0);
+        total_diposited += monthly_diposited;// Accumulate total diposite
+        do
+        {
+            cout<<"Total withdrawn for this month: $";
+            cin>>monthly_withdrawn;
+            if (monthly_withdrawn < 0 || monthly_withdrawn > monthly_balance) {
+                //validate only positive numbers and less than the monthly ending balance
+                cout<<"Do not accept negative numbers or numbers greater than the balance after the deposits for the month have been added in"<<endl;
+            }
+        }
+        while (monthly_withdrawn < 0 || monthly_withdrawn > monthly_balance);
+        total_withdrawn += monthly_withdrawn;// Accumulate total withdrawn
+        
+        // Calculate monthly ending balance
+        monthly_balance = monthly_balance + monthly_diposited - monthly_withdrawn;
+        
+        // Calculate monthly interest
+        interest_received = (monthly_balance + starting_balance) / 2.0 * (annual_interest_rate / 12);
+        
+        total_interest += interest_received;// Accumulate total Interest
+        
+        ending_balance = monthly_balance + interest_received;
+       
+        //Calculate and display the monthly interest and monthly ending balance
+        cout<<"Interest received this month $"<<interest_received<<endl;
+        monthly_balance += interest_received;
+        cout<<"Ending monthly balance $"<<monthly_balance<<endl;
+    }
+    //Display the report
+    cout<<"\nQuarterly Savings Account Statement\n";
+    cout<< "\nStarting balance:     $" <<setw(10) <<starting_balance<<endl;
+    cout<< "Total deposits:     + $" <<setw(10) <<total_diposited<<endl;
+    cout<< "Total withdrawn:    - $" <<setw(10) <<total_withdrawn<<endl;
+    cout<< "total interest:     + $" <<setw(10) <<total_interest<<endl;
+    cout<< "                       ---------"<<setw(10)<<endl;
+    cout<< "Ending balance:       $" <<setw(10)<<ending_balance<<endl;
+    cout<< "\n--------------------------------\n" <<setw(10);
+    
+  
+    return 0;
+}
