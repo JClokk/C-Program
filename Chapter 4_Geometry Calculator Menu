@@ -1,0 +1,88 @@
+//summary: This program display a Geometry Calculator menu
+/*input /output chart
+ input               output
+ radian              area
+ 12.234              470.20
+ -12                 The radian can not be less than zero
+ */
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() {
+    //Variables and constant
+    const float pi = 3.14159;
+    int choice = 0;
+    float radian,
+          area,
+          length,
+          width,
+          base,
+          height;
+           
+    //Use the while loop to display the menu
+    //Ask the user to choice the menu
+    while (choice != 4) {
+        cout<<"\nGeometry Calculator\n";
+        cout<<"\n1. Calculate the Area of a Circle\n";
+        cout<<"2. Calculate the Area of a Rectangle\n";
+        cout<<"3. Calculate the Area of a Triangle\n";
+        cout<<"4. Quit\n";
+        cout<<"\nEnter your choice (1-4): ";
+        cin>>choice;
+        //Display result with two dacimal
+        cout<<fixed<<showpoint<<setprecision(2);
+        //Use the switch and if statement
+        //Ask the user to enter the information about the area
+        //Calulate the area and display it
+        switch (choice) {
+            case 1:
+                cout<<"\nEnter the circle's radian: ";
+                cin>>radian;
+                if (radian < 0) {
+                    cout<<"\nThe radian can not be less than zero.\n";
+                }
+                else
+                { area = pi * (radian * radian);
+                    cout<<"\nThe area is "<<area<<endl;
+                }
+                break;
+            case 2:
+                cout<<"Enter the rectangle's length: ";
+                cin>>length;
+                cout<<"\nEnter the rectangle's width: ";
+                cin>>width;
+                if (length < 0 || width < 0) {
+                    cout<<"\nThe length or width can not be less than zero.\n";
+                }
+                else
+                { area = length * width;
+                    cout<<"\nThe area is "<<area<<endl;
+                }
+                break;
+            case 3:
+                cout<<"\nEnter the length of the triangle’s base: ";
+                cin>>base;
+                cout<<"\nEnter the triangle's height: ";
+                cin>>height;
+                if (base < 0 || height < 0) {
+                    cout<<"\nThe base or height can not be less than zero.\n";
+                }
+                else
+                { area = base * height * .5;
+                    cout<<"\nThe area is "<<area<<endl;
+                }
+                break;
+            case 4:
+                cout<<"\nQuit\n"<<endl;
+                
+                break;
+            default:
+                cout<<"\nPlease only enter 1-4.";
+                cout<<"\nTry again"<<endl;
+            break;
+     }
+    }
+   
+    return 0;
+}
