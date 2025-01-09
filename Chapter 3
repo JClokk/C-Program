@@ -1,0 +1,35 @@
+// Summary: This program is calculate a cookie recipe ingredients
+
+#include <iostream>
+
+using namespace std;
+
+int main() 
+{
+    //Variables
+    double cookies = 48,
+           sugar = 1.5,
+           butter = 1,
+           flour = 2.75;
+    
+    float numCookies,
+          totalButter,
+          totalSugar,
+          totalFlour;
+    
+    //Ask user how many cookies to make
+    cout << "How many cookies do you want to bake? ";
+    cin >> numCookies;
+    
+    //Calculate ingredients
+    totalSugar = (sugar * numCookies) / cookies;
+    totalButter = (butter * numCookies) / cookies;
+    totalFlour = (flour * numCookies) / cookies;
+    
+    //Display amount of ingredients
+    cout <<"To make " << numCookies <<" cookies, you should use " <<endl;
+    cout << totalSugar <<" cups of sugar, " << totalButter << " cups of butter, and " 
+         << totalFlour <<" cups of flour." <<endl;
+    
+    return 0;
+}
