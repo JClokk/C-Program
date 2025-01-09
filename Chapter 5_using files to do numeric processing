@@ -1,0 +1,69 @@
+/Summary: This program using files to do numeric processing
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+using namespace std;
+int main() {
+   
+    //File stream objects
+    ifstream inputFile;
+    ofstream outputFile;
+    string filename;
+    
+    //Variables
+       int number,
+           nums = 0;
+    double sum = 0.0,
+           average = 0.0;
+    
+    outputFile.open("Numbers.txt");//open the outputfile Numbers.txt
+    
+    //Get the input from the user
+    cout << "For how many numbers do you want to enter? ";
+    cin >> number;
+    
+    //Use for loop to get the input from the user
+    for (int count = 1; count <= number; count++) {
+        cout << "Enter the number " << count << ": ";
+        cin >> nums;
+        outputFile << nums <<endl;
+        sum += nums; //Acuumulate the sum of the numbers
+        average = sum / number; //Calulate the average of the numbers
+    }
+    
+    outputFile.close(); //close the output file
+    
+    cout << "Data written to Numbers.txt" << endl;
+    cout << "----- The End for entering dats -----" <<endl;
+    cout << "\nEnter the filename: "; //Prompt the user to enter the filename
+    cin >> filename;
+    
+    inputFile.open(filename); //Open the file
+        //if the file opened, process it
+    if (inputFile) {
+         //Read and display all the numbers from the file then calulate the sum and average
+        cout <<"\nThe data from the Numbers.txt\n";
+       
+        while (inputFile >> nums){
+            cout << nums <<endl;
+        }
+            cout << "\nNumber of numbers: " << number << endl;
+            cout << fixed << showpoint << setprecision(2); //Two decimal places
+            cout << "Sum of the numbers: " << sum << endl;
+            cout << "Average of the numbers: " << average << endl;
+        
+        inputFile.close(); //Close the inputfile
+    }
+    else{
+        //Display a error message if the file does not exist
+        cout << "Error opening the file." << endl;
+        cout << "\nNumber of numbers: " << "0" << endl;
+        cout << fixed << showpoint << setprecision(2);
+        cout << "Sum of the numbers: " << "0.00" << endl;
+        cout << "Average of the numbers: " << "-nan(ind)" << endl;
+    }
+    
+    return 0;
+}
