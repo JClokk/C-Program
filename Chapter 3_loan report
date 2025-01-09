@@ -1,0 +1,49 @@
+// Summary: This program calculate the loan report
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    //Vaviables
+    int numberOfPatments;
+    
+    float loanAmount,
+          interestRate,
+          monthlyPayment,
+          amount_paidBack,
+          interest_paid;
+    
+    //Ask user for loan amount, annual interest rate and number of payment
+    cout << "Loan amount: $";
+    cin >> loanAmount;
+    cout << "Annual interest rate (in the format .12 (for 12%): ";
+    cin >> interestRate;
+    cout << "Number of monthly payments to be made: ";
+    cin >> numberOfPatments;
+    
+    //Calculate the loan report
+    interestRate = interestRate / 12;//Dividing the annual interest rate by 12
+    
+    monthlyPayment = (interestRate * pow(1 + interestRate,numberOfPatments)) / (pow(1 + interestRate,numberOfPatments) - 1) * loanAmount;//Monthly Payment formula
+    
+    interestRate *= 100;//Change to percentage multiplying by 100
+    
+    amount_paidBack = numberOfPatments * monthlyPayment;
+    
+    interest_paid = monthlyPayment * numberOfPatments - loanAmount;
+    
+    //Display the loan report
+    cout << setprecision(2) <<fixed <<endl;
+    cout <<" - - Loan report - - " <<endl;
+    cout <<"\nLoan Amount:           $" <<setw(10) << loanAmount <<endl;
+    cout <<"Monthly Interest Rate: " <<setw(10) <<interestRate <<"%" <<endl;
+    cout <<"Number of Payment:      " <<setw(10) <<numberOfPatments <<endl;
+    cout <<"Monthly Payment:       $" <<setw(10) <<monthlyPayment <<endl;
+    cout <<"Amout Paid Back:       $" <<setw(10) << amount_paidBack <<endl;
+    cout <<"Interest Paid:         $" <<setw(10) << interest_paid <<endl;
+    
+    return 0;
+}
