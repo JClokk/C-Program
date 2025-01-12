@@ -1,0 +1,169 @@
+//Summary: This program is to play the game of Rock, Paper, Scissors against the computer
+/* input  /  output  chart
+ Game Menu
+ ---------
+ 1) Rock
+ 2) Paper
+ 3) Scissors
+ 4) Quit
+
+ Enter your choice: 1
+ You selected: Rock
+ The computer selected: Paper
+ Comper win! Paper wraps rock.*/
+
+#include <iostream>
+#include <random> //random number
+
+using namespace std;
+//Constants
+const int ROCK = 1,
+          PAPER = 2,
+          SCISSORS = 3,
+          QUIT = 4;
+//Function prototypes
+int computerChioce(int);
+int userChioce(int);
+void dispalyComputerChioce(int,int,bool);
+void displayWinner(int,int,bool &);
+
+int main() {
+    //Variables
+    int user = 0,
+        computer = 0;
+    bool tie = false;
+    //To call the functions and display the game
+    do {
+        user = userChioce(user);
+        computer = computerChioce(computer);
+        dispalyComputerChioce(computer,user,tie);
+        displayWinner(computer,user,tie);
+        
+    } while (tie == false && user != 4); //vadicate the input
+    return 0;
+}
+//*****************************************
+//* Definition of function computerChioce.*
+//* This funcion get the random number    *
+//* for the computer choice of the game.  *
+//*****************************************
+int computerChioce(int computer)
+{
+    random_device myEngine;
+    uniform_int_distribution<int>ramdonInt(1, 3);
+    computer = ramdonInt (myEngine);
+    return computer;
+}
+//*****************************************
+//* Definition of function userChioce.    *
+//* This funcion display the game menu    *
+//* and input the user choice of the game.*
+//*****************************************
+int userChioce(int user)
+{
+    cout <<"Game Menu\n";
+    cout <<"---------\n";
+    cout <<"1) Rock\n";
+    cout <<"2) Paper\n";
+    cout <<"3) Scissors\n";
+    cout <<"4) Quit\n";
+    cout <<"\nEnter your choice: ";
+    cin >> user;
+    
+    switch (user)
+    {
+        case 1:
+            cout << "You selected: Rock\n";
+            break;
+        case 2:
+            cout << "You selected: Paper\n";
+            break;
+        case 3:
+            cout << "You selected Scissors\n";
+            break;
+        case 4:
+            cout << "Quit the game\n";
+            break;
+        default:
+            cout << "Please enter 1-4: ";
+            break;
+    }
+    return user;
+}
+//***********************************************
+//* Definition of function displayComputerChioce*
+//* This funcion display the computer chioce.   *
+//***********************************************
+void dispalyComputerChioce(int computer, int user, bool tie)
+{
+    if (computer == ROCK && user != 4 && tie == false)
+    {
+        cout << "The computer selected: Rock\n";
+    }
+    if (computer == PAPER && user != 4 && tie == false)
+    {
+        cout << "The computer selected: Paper\n";
+    }
+    if (computer == SCISSORS && user != 4 && tie == false)
+    {
+        cout << "The computer selected: Scissors\n";
+    }
+}
+//***********************************************
+//* Definition of function displayWinner.       *
+//* This funcion display the winner of the game.*
+//***********************************************
+void displayWinner(int computer, int user, bool &tie)
+    {
+       
+        if (computer == ROCK && user == PAPER )
+        {
+                cout << "You win! Paper wraps rock." << endl;
+                tie = true;
+            }
+            else if (computer == ROCK && user == SCISSORS)
+            {
+                cout << "Computer win! rock smashes scissors."<< endl;
+                tie = true;
+            }
+         
+            else if (computer == ROCK && user == ROCK)
+            {
+                cout << "Tie. No winner." << endl;
+              tie = false;
+            }
+
+            else if (computer == PAPER && user == ROCK)
+           {
+                cout << "Comper win! Paper wraps rock." << endl;
+                tie = true;
+            }
+            else if (computer == PAPER && user == SCISSORS)
+            {
+                cout << "You win! Scissors cuts paper." << endl;
+                tie = true;
+            }
+            else if (computer == PAPER && user == PAPER)
+            {
+                cout << "Tie. No winner." << endl;
+                tie = false;
+            }
+            else if (computer == SCISSORS && user == ROCK)
+            {
+                    cout << "You win! rock smashes scissors." << endl;
+                    tie = true;
+                }
+                else if (computer == SCISSORS && user == PAPER)
+                {
+                    cout << "Computer win! scissors cuts paper." << endl;
+                    tie = true;
+                }
+                else if (computer == SCISSORS && user == SCISSORS)
+                {
+                    cout << "Tie. No winner." << endl;
+                    tie = false;
+                }
+            
+           
+        }
+
