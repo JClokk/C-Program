@@ -1,0 +1,237 @@
+//Summary: This program is C++ Theater
+//Complete Input/output data chart
+/*      C++ Theater
+ 
+ 1.  Display the Seating Chart
+ 2.  Display Seating Prices
+ 3.  Update Seating Prices
+ 4.  Request Tickets
+ 5.  Print a Sales Report
+ 6.  Exit the Program
+ 
+ Enter your chioce (1-6): 1
+
+              Seats
+       123456789012345678901234567890
+Row 1  ##############################
+Row 2  ##############################
+Row 3  ##############################
+Row 4  ##############################
+Row 5  ##############################
+Row 6  ##############################
+Row 7  ##############################
+Row 8  ##############################
+Row 9  ##############################
+Row 10  ##############################
+Row 11  ##############################
+Row 12  ##############################
+Row 13  ##############################
+Row 14  ##############################
+Row 15  ##############################
+          C++ Theater
+  
+  1.  Display the Seating Chart
+  2.  Display Seating Prices
+  3.  Update Seating Prices
+  4.  Request Tickets
+  5.  Print a Sales Report
+  6.  Exit the Program
+ 
+ Enter your chioce (1-6): 4
+ 
+ Select the row you would like to sit in: 1
+ Select the seat you would like to sit in: 1
+ That ticket costs: $30
+ Total costs: $30
+ Confirm Purchase? Enter (1 = YES / 2 = NO)1
+ Your ticket purchase has been confirmed.
+ Would you like to look at another seat?(1 = YES / 2 = NO)2*/
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+//set constans
+const int ROWS = 15;
+const int COLS = 30;
+const char AVALIABLE = '#';
+const char TAKEN = '*';
+
+//Set variables
+char seatsChart [ROWS][COLS];
+double total;
+int seatAvaliable = ROWS * COLS;
+int sold = 0;
+int Quit = 1;
+int row, column, answer;
+// Array seat price
+double seatPrice[ROWS] = {30.00, 30.00, 30.00, 30.00, 20.00, 20.00, 20.00, 20.00, 12.00, 12.00, 12.00, 12.00, 8.00, 8.00, 8.00};
+
+//function prototypes
+void displaySeats ();
+void displayPrices ();
+void ticketPurchase ();
+void salesReport ();
+
+int main() {
+   
+    int chioce;//Set variable chioce
+    
+    //Set up the seats chart
+    for (int i = 0; i < ROWS; i++)
+            {
+                for (int j = 0; j < COLS; j++)
+                    seatsChart [i][j] = AVALIABLE;
+            }
+   
+     //Display the theater menu and get the input
+    do {
+        cout <<"\t\tC++ Theater\n";
+        cout <<"\n1.  Display the Seating Chart\n";
+        cout <<"2.  Display Seating Prices\n";
+        cout <<"3.  Update Seating Prices\n";
+        cout <<"4.  Request Tickets\n";
+        cout <<"5.  Print a Sales Report\n";
+        cout <<"6.  Exit the Program\n";
+        cout <<"\nEnter your chioce (1-6): ";
+        cin >> chioce;
+        cout << endl;
+    //Switch the input chioce
+    switch (chioce) {
+        case 1:
+              displaySeats(); //Function call
+            break;
+        case 2:
+              displayPrices();//Function call
+            break;
+        case 3:
+              displayPrices();//Function call
+            break;
+        case 4:
+            do{
+                ticketPurchase ();//Function call
+            }while (Quit == 1);
+            break;
+        case 5:
+                salesReport();//Function call
+            break;
+        case 6:
+            cout << "\tQuit the program" <<endl;
+            break;
+        default:
+            cout << "Error input" <<endl;
+            break;
+    }
+    }while (chioce != 6);
+    return 0;
+}
+//**********************************
+//*      Function Definition       *
+//* This function display the seats*
+//**********************************
+void displaySeats ()
+{
+    
+    cout << "\t\t\t\tSeats" << endl;
+    cout << "\t   123456789012345678901234567890";
+    
+    for (int count = 0; count < 15; count++)
+    {
+        cout << endl << "Row " << (count + 1) << "  ";
+        
+        for (int index = 0; index < 30; index++)
+        {
+            cout << seatsChart[count][index];
+        }
+    }
+    cout << endl;
+}
+//**************************************************************************
+//*                      Function Definition                               *
+//* This function write and read the seat prices to the file and display it*
+//**************************************************************************
+void displayPrices ()
+{
+    double* doubleptr; //Pointer
+    doubleptr = seatPrice;
+   
+    ofstream outfile;
+    outfile.open("SeatPrices.txt");
+   
+    for (int i = 0; i < ROWS; i++) {
+        outfile << doubleptr[i];
+    }
+    
+    outfile.close();
+    
+    ifstream infile;
+    infile.open("SeatPrices.txt");
+    
+    for (int i = 0; i < ROWS; i++) {
+        infile >> doubleptr[i];
+    }
+    infile.close();
+    
+    for (int i = 0; i < 15; i++) {
+        cout << "The price for row " << (i + 1) << ": $" << doubleptr[i] << " " << setprecision(2) << fixed;
+        cout << endl;
+    }
+}
+//************************************************
+//*           Function Definition                *
+//*This function to get the input ticket purchase*
+//************************************************
+void ticketPurchase ()
+    {
+      cout << "Select the row you would like to sit in: ";
+      cin >> row;
+      cout << "Select the seat you would like to sit in: ";
+      cin >> column;
+   
+    if (seatsChart [row - 1][column - 1] == '*')
+    {
+        cout << "Sorry that seat have been sold, Please select a new seat.";
+        cout << endl;
+    }
+    
+    else
+    {
+        cout << "That ticket costs: $" << seatPrice[row] << endl;
+        cout << "Confirm Purchase? Enter (1 = YES / 2 = NO)";
+        cin >> answer;
+        total += seatPrice[row];
+        seatAvaliable = seatAvaliable - answer;
+        sold += answer;
+        
+        
+        if (answer == 1)
+        {
+            cout << "Your ticket purchase has been confirmed." << endl;
+            seatsChart [row - 1][column - 1] = TAKEN;
+            
+        }
+        else if (answer == 2)
+        {
+            cout << "Would you like to look at another ticket? (1 = YES / 2 = NO)";
+            cin >> Quit;
+        }
+        
+        cout << "Would you like to look at another ticket?(1 = YES / 2 = NO)";
+        cin >> Quit;
+    }
+}
+//*******************************************
+//*     Function Definition                 *
+//*   This function display the sales report*
+//*******************************************
+void salesReport ()
+        {
+            cout << "********************************* " << endl;
+            cout << "*\t\t\tSales Report        *" << endl;
+            cout << "********************************* " << endl;
+            cout << "Number of seats have been sold: " << sold << setw(25) << endl;
+            cout << "Number of seats avaliable: " << seatAvaliable << setw(25) << endl;
+            cout << "The total ticket sales is: $" << total << setw(25) << endl;
+        }
+    
