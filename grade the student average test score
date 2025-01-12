@@ -1,0 +1,277 @@
+//Summary: This program grade the student average test score
+/*input     /    output chart
+ Enter the name of the student 1: Peter
+ Enter test score 1 for Peter: 90
+ Enter test score 2 for Peter: 80
+ Enter test score 3 for Peter: 70
+ Enter test score 4 for Peter: 85
+ Enter the name of the student 2: Sam
+ Enter test score 1 for Sam: 69
+ Enter test score 2 for Sam: 76
+ Enter test score 3 for Sam: 78
+ Enter test score 4 for Sam: 56
+ Enter the name of the student 3: Smith
+ Enter test score 1 for Smith: 74
+ Enter test score 2 for Smith: 79
+ Enter test score 3 for Smith: 85
+ Enter test score 4 for Smith: 84
+ Enter the name of the student 4: Mary
+ Enter test score 1 for Mary: 78
+ Enter test score 2 for Mary: 75
+ Enter test score 3 for Mary: 79
+ Enter test score 4 for Mary: 86
+ Enter the name of the student 5: Sue
+ Enter test score 1 for Sue: 85
+ Enter test score 2 for Sue: 83
+ Enter test score 3 for Sue: 94
+ Enter test score 4 for Sue: 72
+
+ Results:
+ Student Name    Dropped Score    Average Score    Grade
+ Peter           70.00           85.00           B
+ Sam             56.00           74.33           C
+ Smith           74.00           82.67           B
+ Mary            75.00           81.00           B
+ Sue             72.00           87.33           B  */
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    //Set constans
+    const int STUDENTS = 5;
+    const int SCORES = 4;
+    //Set variables and array
+    string names [STUDENTS];
+    char grades [STUDENTS];
+    double testScores [STUDENTS][SCORES];
+    double average [STUDENTS];
+    double sum[STUDENTS];
+    double total[STUDENTS];
+    double droppedScore[STUDENTS];
+    //get the input for student 1 name
+    cout << "Enter the name of the student 1: ";
+    cin >> names[0];
+    //get the input for student 1 scores
+        for (int count = 0; count < SCORES; count++)
+        {
+            do {
+                cout << "Enter test score "<< (count + 1) << " " << "for "<< names[0] <<": ";
+                cin >> testScores[0][count];
+                if (testScores[0][count] < 0 || testScores[0][count] > 100) //Vadicate the error input
+                {
+                    cout << "Error, input score no less than 0 or no greater than 100.\n";
+                }
+               } while (testScores[0][count] < 0 || testScores[0][count] > 100);
+            
+            droppedScore[0] = testScores[0][0];
+            //Get the lowest score
+            for (int index = 1; index < SCORES; index++)
+            {
+                if (testScores[0][index] < droppedScore[0])
+                {
+                    droppedScore[0] = testScores[0][index];
+                }
+            }
+            
+            sum[0] += testScores[0][count]; //Accumenlate the sum of test scores
+            total[0] = sum[0] - droppedScore[0];
+            average[0] = total[0] / (SCORES - 1);//Calculate the average
+        }
+         //Get the student 2 name
+    cout << "Enter the name of the student 2: ";
+    cin >> names[1];
+         //Get the student 2 for each test scores
+    for (int count = 0; count < SCORES; count++)
+    {
+        do
+        {
+            cout << "Enter test score "<< (count + 1) << " " << "for "<< names[1] <<": ";
+            cin >> testScores[1][count];
+            if (testScores[1][count] < 0 || testScores[1][count] > 100) //Vadicate the error input
+            {
+                cout << "Error, input score no less than 0 or no greater than 100.\n";
+            }
+           } while (testScores[1][count] < 0 || testScores[1][count] > 100);
+        
+        droppedScore[1] = testScores[1][0];
+       
+        for (int index = 1; index < SCORES; index++)  //Get the lowest score
+        {
+            if (testScores[1][index] < droppedScore[1])
+            {
+                droppedScore[1] = testScores[1][index];
+            }
+        }
+        
+        sum[1] += testScores[1][count]; //Accumentlate the sum of test scores
+        total[1] = sum[1] - droppedScore[1];
+        average[1] = total[1] / (SCORES - 1);//Calculate the average
+    }
+    //Get input for student 3
+    cout << "Enter the name of the student 3: ";
+    cin >> names[2];
+    
+    for (int count = 0; count < SCORES; count++)
+    {
+       do
+       {
+           cout << "Enter test score "<< (count + 1) << " " << "for "<< names[2] <<": ";
+           cin >> testScores[2][count];
+           if (testScores[2][count] < 0 || testScores[2][count] > 100)
+           {
+               cout << "Error, input score no less than 0 or no greater than 100.\n";
+           }
+          } while (testScores[2][count] < 0 || testScores[2][count] > 100);
+       
+        droppedScore[2] = testScores[2][0];
+        for (int index = 1; index < SCORES; index++)
+        {
+            if (testScores[2][index] < droppedScore[2])
+            {
+                droppedScore[2] = testScores[2][index];
+            }
+        }
+        
+        sum[2] += testScores[2][count];
+        total[2] = sum[2] - droppedScore[2];
+        average[2] = total[2] / (SCORES - 1);
+    }
+    
+    //Get input for student 4
+    cout << "Enter the name of the student 4: ";
+    cin >> names[3];
+    
+    for (int count = 0; count < SCORES; count++)
+    {
+        do
+        {
+            cout << "Enter test score "<< (count + 1) << " " << "for "<< names[3] <<": ";
+            cin >> testScores[3][count];
+            
+        if (testScores[3][count] < 0 || testScores[3][count] > 100)
+            {
+                cout << "Error, input score no less than 0 or no greater than 100.\n";
+            }
+           } while (testScores[3][count] < 0 || testScores[3][count] > 100);
+        
+        droppedScore[3] = testScores[3][0];
+        for (int index = 1; index < SCORES; index++)
+        {
+            if (testScores[3][index] < droppedScore[3])
+            {
+                droppedScore[3] = testScores[3][index];
+            }
+        }
+        
+        sum[3] += testScores[3][count];
+        total[3] = sum[3] - droppedScore[3];
+        average[3] = total[3] / (SCORES - 1);
+    }
+    
+    //Get input for student 5
+    cout << "Enter the name of the student 5: ";
+    cin >> names[4];
+    
+    for (int count = 0; count < SCORES; count++)
+    {
+       do
+       {
+           cout << "Enter test score "<< (count + 1) << " " << "for "<< names[4] <<": ";
+           cin >> testScores[4][count];
+           if (testScores[4][count] < 0 || testScores[4][count] > 100)
+           {
+               cout << "Error, input score no less than 0 or no greater than 100.\n";
+           }
+          } while (testScores[4][count] < 0 || testScores[4][count] > 100);
+       
+        droppedScore[4] = testScores[4][0];
+        for (int index = 1; index < SCORES; index++)
+        {
+            if (testScores[4][index] < droppedScore[4])
+            {
+                droppedScore[4] = testScores[4][index];
+            }
+        }
+        
+        sum[4] += testScores[4][count];
+        total[4] = sum[4] - droppedScore[4];
+        average[4] = total[4] / (SCORES - 1);
+    }
+     //Determine the grades of each students
+    if (average[0] <= 100 && average[0] >= 90)
+        grades[0] = 'A';
+    else if (average[0] < 90 && average[0] >= 80)
+        grades[0] = 'B';
+    else  if (average[0] < 80 && average[0] >= 70)
+        grades[0] = 'C';
+    else if (average[0] < 70 && average[0] >= 60)
+        grades[0] = 'D';
+    else if (average[0] < 60 && average[0] >= 0)
+        grades[0] = 'F';
+   
+    if (average[1] <= 100 && average[1] >= 90)
+        grades[1] = 'A';
+    else if (average[0] < 90 && average[1] >= 80)
+        grades[1] = 'B';
+    else  if (average[1] < 80 && average[1] >= 70)
+        grades[1] = 'C';
+    else if (average[1] < 70 && average[1] >= 60)
+        grades[1] = 'D';
+    else if (average[1] < 60 && average[1] >= 0)
+        grades[1] = 'F';
+    
+    if (average[2] <= 100 && average[2] >= 90)
+        grades[2] = 'A';
+    else if (average[2] < 90 && average[2] >= 80)
+        grades[2] = 'B';
+    else  if (average[2] < 80 && average[2] >= 70)
+        grades[2] = 'C';
+    else if (average[2] < 70 && average[2] >= 60)
+        grades[2] = 'D';
+    else if (average[0] < 60 && average[2] >= 0)
+        grades[2] = 'F';
+    
+    if (average[3] <= 100 && average[3] >= 90)
+        grades[3] = 'A';
+    else if (average[0] < 90 && average[3] >= 80)
+        grades[3] = 'B';
+    else  if (average[0] < 80 && average[3] >= 70)
+        grades[3] = 'C';
+    else if (average[0] < 70 && average[3] >= 60)
+        grades[3] = 'D';
+    else if (average[0] < 60 && average[3] >= 0)
+        grades[3] = 'F';
+   
+    if (average[4] <= 100 && average[4] >= 90)
+        grades[4] = 'A';
+    else if (average[4] < 90 && average[4] >= 80)
+        grades[4] = 'B';
+    else  if (average[4] < 80 && average[4] >= 70)
+        grades[4] = 'C';
+    else if (average[4] < 70 && average[4] >= 60)
+        grades[4] = 'D';
+    else if (average[0] < 60 && average[4] >= 0)
+        grades[4] = 'F';
+    
+    //Display the results
+    cout << fixed << showpoint << setprecision(2)<< endl;
+    cout << "Results: \n";
+    cout << "Student Name" <<"\tDropped Score" <<"\tAverage Score" << "\tGrade" << endl;
+    cout << left << setw(16) << names[0] << setw(16) << droppedScore[0];
+    cout << setw(16) << average[0] << setw(12) << grades[0]<<endl;
+    cout << left << setw(16) << names[1] << setw(16) << droppedScore[1];
+    cout << setw(16) << average[1] << setw(12) << grades[1]<<endl;
+    cout << left << setw(16) << names[2] << setw(16) << droppedScore[2];
+    cout << setw(16) << average[2] << setw(12) << grades[2]<<endl;
+    cout << left << setw(16)<< names[3] << setw(16) << droppedScore[3];
+    cout << setw(16) << average[3] << setw(12) << grades[3]<<endl;
+    cout << left << setw(16)<< names[4] << setw(16) << droppedScore[4];
+    cout << setw(16) << average[4] << setw(12) << grades[4]<<endl;
+   
+    return 0;
+    
+}
+
